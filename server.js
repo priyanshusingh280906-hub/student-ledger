@@ -1,8 +1,14 @@
 const express = require("express");
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("My backend is working!");
+app.use(express.json()); 
+
+app.post("/students", (req, res) => {
+  const data = req.body;
+
+  console.log(data);
+
+  res.send("Student received!");
 });
 
 app.listen(3000, () => {
