@@ -1,22 +1,23 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 
-app.use(express.json()); 
+const connectDB = require("./config/db");
+const authRoutes = require("./routes/authRoutes");
+const studentRoutes = require("./routes/studentRoutes");
+const swaggerDocs = require("./utils/swagger");
 
-let students =[];
+app.use(express.json());
 
-app.post("/students", (req, res) => {
-  const data = req.body;
+connectDB();
 
-  console.log(data);
+app.use("/auth", authRoutes);
+app.use("/students", studentRoutes);
 
-  res.send("Student added!");
+swaggerDocs(app);
+
+app.get("/", (req, res) => {
+  res.send("Student API is running");
 });
 
-app.get("/students", (req, res) => {
-  res.json(students);
-});
-
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
+app.listen(3000);
