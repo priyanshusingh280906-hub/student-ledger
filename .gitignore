@@ -5,3 +5,4 @@ build/
 .cache/
 .DS_Store
 *.log
+.npm-cache/
